@@ -3,6 +3,8 @@ import Vuetable from './components/Vuetable.vue'
 import VuetablePagination from './components/VuetablePagination.vue'
 import VuetablePaginationDropdown from './components/VuetablePaginationDropdown.vue'
 import VuetablePaginationInfo from './components/VuetablePaginationInfo.vue'
+import VuetablePage from './components/VuetablePage.vue'
+
 import axios from 'axios'
 
 let E_SERVER_ERROR = 'Error communicating with the server'
@@ -95,6 +97,7 @@ Vue.component('settings-modal', {
           <select class="ui simple dropdown" v-model="$parent.paginationComponent">
             <option value="vuetable-pagination">vuetable-pagination</option>
             <option value="vuetable-pagination-dropdown">vuetable-pagination-dropdown</option>
+            <option value="vuetable-page">vuetable-page</option>
           </select>
         </div>
         <div class="field">
@@ -257,6 +260,7 @@ let vm = new Vue({
     VuetablePagination,
     VuetablePaginationDropdown,
     VuetablePaginationInfo,
+    VuetablePage
   },
   data: {
     loading: '',

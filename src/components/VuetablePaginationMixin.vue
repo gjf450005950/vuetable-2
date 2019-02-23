@@ -5,19 +5,19 @@ export default {
       type: Object,
       default () {
         return {
-          wrapperClass: 'ui right floated pagination menu',
-          activeClass: 'active large',
+          wrapperClass: 'pagination',
+          activeClass: 'active',
           disabledClass: 'disabled',
-          pageClass: 'item',
-          linkClass: 'icon item',
-          paginationClass: 'ui bottom attached segment grid',
-          paginationInfoClass: 'left floated left aligned six wide column',
-          dropdownClass: 'ui search dropdown',
+          pageClass: '',
+          linkClass: '',
+          paginationClass: '',
+          paginationInfoClass: '',
+          dropdownClass: '',
           icons: {
-            first: 'angle double left icon',
-            prev: 'left chevron icon',
-            next: 'right chevron icon',
-            last: 'angle double right icon',
+            first: '',
+            prev: '',
+            next: '',
+            last: '',
           }
         }
       }
@@ -32,10 +32,16 @@ export default {
   data: function() {
     return {
       eventPrefix: 'vuetable-pagination:',
-      tablePagination: null
+      tablePagination: null,
+      current_page:''
     }
   },
   computed: {
+    total () {
+      return this.tablePagination === null
+        ? 0
+        : this.tablePagination.total
+    },
     totalPage () {
       return this.tablePagination === null
         ? 0

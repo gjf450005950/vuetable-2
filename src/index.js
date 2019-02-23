@@ -4,6 +4,8 @@ import VuetablePaginationDropDown from './components/VuetablePaginationDropdown.
 import VuetablePaginationInfo from './components/VuetablePaginationInfo.vue'
 import VuetablePaginationMixin from './components/VuetablePaginationMixin.vue'
 import VuetablePaginationInfoMixin from './components/VuetablePaginationInfoMixin.vue'
+import VuetablePage from './components/VuetablePage.vue'
+
 import Promise from 'promise-polyfill'
 
 if (!window.Promise) {
@@ -15,6 +17,7 @@ function install(Vue){
   Vue.component("vuetable-pagination", VuetablePagination);
   Vue.component("vuetable-pagination-dropdown", VuetablePaginationDropDown);
   Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
+  Vue.component("vuetable-page", VuetablePage);
 }
 export {
   Vuetable,
@@ -23,6 +26,7 @@ export {
   VuetablePaginationInfo,
   VuetablePaginationMixin,
   VuetablePaginationInfoMixin,
+  VuetablePage,
   install
 };
 
