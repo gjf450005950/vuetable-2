@@ -510,6 +510,8 @@ export default {
         elem.addEventListener('scroll', this.handleScroll);
       }
     }
+    // 接收分页事件
+    this.$parent.$on('vuetable-pagination:change-page',page=>this.changePage(page));
   },
   destroyed () {
     let elem = this.$el.getElementsByClassName('vuetable-body-wrapper')[0];
@@ -793,7 +795,11 @@ export default {
       return defaultValue
     },
     fireEvent (eventName, args) {
-      this.$emit(this.eventPrefix + eventName, args)
+      if(eventName==='pagination-data'){
+        this.$parent.$emit(this.eventPrefix + eventName, args)
+      }else{
+        this.$emit(this.eventPrefix + eventName, args)
+      }
     },
     warn (msg) {
       if (!this.silent) {

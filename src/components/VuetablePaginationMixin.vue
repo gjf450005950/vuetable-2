@@ -36,6 +36,10 @@ export default {
       current_page:''
     }
   },
+  mounted(){
+    //接收分页数据
+    this.$parent.$on('vuetable:pagination-data',tablePagination=>this.setPaginationData(tablePagination));
+  },
   computed: {
     total () {
       return this.tablePagination === null
@@ -75,7 +79,7 @@ export default {
   },
   methods: {
     loadPage (page) {
-      this.$emit(this.eventPrefix+'change-page', page)
+      this.$parent.$emit(this.eventPrefix+'change-page', page)
     },
     isCurrentPage (page) {
       return page === this.tablePagination.current_page

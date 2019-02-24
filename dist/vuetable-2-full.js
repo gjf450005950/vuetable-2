@@ -3208,6 +3208,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.normalizeFields();
     this.normalizeSortOrder();
     if (this.isFixedHeader) {
@@ -3226,6 +3228,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         elem.addEventListener('scroll', this.handleScroll);
       }
     }
+
+    this.$parent.$on('vuetable-pagination:change-page', function (page) {
+      return _this.changePage(page);
+    });
   },
   destroyed: function destroyed() {
     var elem = this.$el.getElementsByClassName('vuetable-body-wrapper')[0];
@@ -3500,7 +3506,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return defaultValue;
     },
     fireEvent: function fireEvent(eventName, args) {
-      this.$emit(this.eventPrefix + eventName, args);
+      if (eventName === 'pagination-data') {
+        this.$parent.$emit(this.eventPrefix + eventName, args);
+      } else {
+        this.$emit(this.eventPrefix + eventName, args);
+      }
     },
     warn: function warn(msg) {
       if (!this.silent) {
@@ -4147,6 +4157,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       current_page: ''
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$parent.$on('vuetable:pagination-data', function (tablePagination) {
+      return _this.setPaginationData(tablePagination);
+    });
+  },
+
   computed: {
     total: function total() {
       return this.tablePagination === null ? 0 : this.tablePagination.total;
@@ -4178,7 +4196,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     loadPage: function loadPage(page) {
-      this.$emit(this.eventPrefix + 'change-page', page);
+      this.$parent.$emit(this.eventPrefix + 'change-page', page);
     },
     isCurrentPage: function isCurrentPage(page) {
       return page === this.tablePagination.current_page;

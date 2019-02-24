@@ -158,7 +158,7 @@ Vue.component('settings-modal', {
     },
     setTableHeight (event) {
       if (event.target.checked) {
-        this.$parent.tableHeight = '600px'
+        //this.$parent.tableHeight = '600px'
         return
       }
 
@@ -274,7 +274,7 @@ let vm = new Vue({
         direction: 'asc',
     }],
     multiSort: true,
-    paginationComponent: 'vuetable-pagination',
+    paginationComponent: 'vuetable-page',
     perPage: 10,
     paginationInfoTemplate: 'Showing record: {from} to {to} from {total} item(s)',
     lang: lang,
