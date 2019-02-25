@@ -6,6 +6,7 @@ import VuetablePaginationInfo from './components/VuetablePaginationInfo.vue'
 import VuetablePage from './components/VuetablePage.vue'
 
 import axios from 'axios'
+import VueI18n from 'vue-i18n'
 
 let E_SERVER_ERROR = 'Error communicating with the server'
 
@@ -251,9 +252,11 @@ let tableColumns = [
     width: '150px'
   }
 ]
-
+Vue.use(VueI18n)
+const i18n = new VueI18n()
 /* eslint-disable no-new */
 let vm = new Vue({
+  i18n,
   el: '#app',
   components: {
     Vuetable,

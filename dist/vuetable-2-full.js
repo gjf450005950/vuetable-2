@@ -5477,7 +5477,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group"
   }, [_c('span', {
     staticClass: "info"
-  }, [_vm._v(_vm._s(_vm.total) + " 条, " + _vm._s(_vm.totalPage) + " 页")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.total) + " " + _vm._s(_vm.$t('table.item')) + ", " + _vm._s(_vm.totalPage) + " " + _vm._s(_vm.$t('table.page')))])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "input-group"
@@ -5515,7 +5515,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.loadPage(_vm.current_page)
       }
     }
-  }, [_vm._v("GO")])])])])])
+  }, [_vm._v(_vm._s(_vm.$t('table.go')))])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

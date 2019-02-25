@@ -47,13 +47,13 @@
       </ul>
     </div>
     <div class="form-group">
-      <span class="info">{{total}} 条, {{totalPage}} 页</span>
+      <span class="info">{{total}} {{$t('table.item')}}, {{totalPage}} {{$t('table.page')}}</span>
     </div>
     <div class="form-group">
       <div class="input-group">
         <input type="number" class="form-control" min="1" :max="totalPage" v-model="current_page">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button" @click="loadPage(current_page)">GO</button>
+          <button class="btn btn-default" type="button" @click="loadPage(current_page)">{{$t('table.go')}}</button>
         </span>
       </div>
     </div>
