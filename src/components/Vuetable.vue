@@ -475,6 +475,10 @@ export default {
     showSortIcons: {
       type: Boolean,
       default: true
+    },
+    tag: {
+      type: String,
+      default: 'main'
     }
   },
   data () {
@@ -511,7 +515,7 @@ export default {
       }
     }
     // 接收分页事件
-    this.$parent.$on('vuetable-pagination:change-page',page=>this.changePage(page));
+    this.$parent.$on('vuetable-pagination:change-page-'+this.tag,page=>this.changePage(page));
   },
   destroyed () {
     let elem = this.$el.getElementsByClassName('vuetable-body-wrapper')[0];
@@ -657,6 +661,7 @@ export default {
 
       this.$nextTick(function() {
         this.fixHeader()
+        // 发送 分页数据
         this.fireEvent('pagination-data', this.tablePagination)
         this.fireEvent('loaded')
       })
@@ -796,7 +801,8 @@ export default {
     },
     fireEvent (eventName, args) {
       if(eventName==='pagination-data'){
-        this.$parent.$emit(this.eventPrefix + eventName, args)
+        // 发送 分页数据
+        this.$parent.$emit(this.eventPrefix + eventName+'-'+this.tag, args)
       }else{
         this.$emit(this.eventPrefix + eventName, args)
       }

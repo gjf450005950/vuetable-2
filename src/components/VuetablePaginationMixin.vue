@@ -28,6 +28,10 @@ export default {
         return 2
       }
     },
+    tag: {
+      type: String,
+      default: 'main'
+    }
   },
   data: function() {
     return {
@@ -35,10 +39,6 @@ export default {
       tablePagination: null,
       current_page:''
     }
-  },
-  mounted(){
-    //接收分页数据
-    this.$parent.$on('vuetable:pagination-data',tablePagination=>this.setPaginationData(tablePagination));
   },
   computed: {
     total () {
@@ -77,14 +77,20 @@ export default {
       return this.tablePagination.current_page - this.onEachSide
     },
   },
+  mounted(){
+    //接收分页数据
+    this.$parent.$on('vuetable:pagination-data-'+this.tag,tablePagination=>this.setPaginationData(tablePagination));
+  },
   methods: {
     loadPage (page) {
-      this.$parent.$emit(this.eventPrefix+'change-page', page)
+      // 发送 切页事件
+      this.$parent.$emit(this.eventPrefix+'change-page-'+this.tag, page)
     },
     isCurrentPage (page) {
       return page === this.tablePagination.current_page
     },
     setPaginationData (tablePagination) {
+      this.current_page = ''
       this.tablePagination = tablePagination
     },
     resetData () {

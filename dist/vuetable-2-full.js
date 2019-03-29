@@ -3191,6 +3191,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     showSortIcons: {
       type: Boolean,
       default: true
+    },
+    tag: {
+      type: String,
+      default: 'main'
     }
   },
   data: function data() {
@@ -3229,7 +3233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }
 
-    this.$parent.$on('vuetable-pagination:change-page', function (page) {
+    this.$parent.$on('vuetable-pagination:change-page-' + this.tag, function (page) {
       return _this.changePage(page);
     });
   },
@@ -3375,6 +3379,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.$nextTick(function () {
         this.fixHeader();
+
         this.fireEvent('pagination-data', this.tablePagination);
         this.fireEvent('loaded');
       });
@@ -3507,7 +3512,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     fireEvent: function fireEvent(eventName, args) {
       if (eventName === 'pagination-data') {
-        this.$parent.$emit(this.eventPrefix + eventName, args);
+        this.$parent.$emit(this.eventPrefix + eventName + '-' + this.tag, args);
       } else {
         this.$emit(this.eventPrefix + eventName, args);
       }
@@ -4148,6 +4153,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       default: function _default() {
         return 2;
       }
+    },
+    tag: {
+      type: String,
+      default: 'main'
     }
   },
   data: function data() {
@@ -4157,14 +4166,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       current_page: ''
     };
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$parent.$on('vuetable:pagination-data', function (tablePagination) {
-      return _this.setPaginationData(tablePagination);
-    });
-  },
-
   computed: {
     total: function total() {
       return this.tablePagination === null ? 0 : this.tablePagination.total;
@@ -4194,14 +4195,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.tablePagination.current_page - this.onEachSide;
     }
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$parent.$on('vuetable:pagination-data-' + this.tag, function (tablePagination) {
+      return _this.setPaginationData(tablePagination);
+    });
+  },
+
   methods: {
     loadPage: function loadPage(page) {
-      this.$parent.$emit(this.eventPrefix + 'change-page', page);
+      this.$parent.$emit(this.eventPrefix + 'change-page-' + this.tag, page);
     },
     isCurrentPage: function isCurrentPage(page) {
       return page === this.tablePagination.current_page;
     },
     setPaginationData: function setPaginationData(tablePagination) {
+      this.current_page = '';
       this.tablePagination = tablePagination;
     },
     resetData: function resetData() {
@@ -5408,7 +5418,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     class: _vm.css.wrapperClass
   }, [_c('li', {
-    class: ['btn-nav', _vm.css.linkClass, _vm.isOnFirstPage ? _vm.css.disabledClass : '']
+    class: [_vm.css.linkClass, _vm.isOnFirstPage ? _vm.css.disabledClass : '']
   }, [_c('a', {
     on: {
       "click": function($event) {
@@ -5418,7 +5428,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.css.icons.first != '') ? _c('i', {
     class: [_vm.css.icons.first]
   }) : _c('span', [_vm._v("«")])])]), _vm._v(" "), _c('li', {
-    class: ['btn-nav', _vm.css.linkClass, _vm.isOnFirstPage ? _vm.css.disabledClass : '']
+    class: [_vm.css.linkClass, _vm.isOnFirstPage ? _vm.css.disabledClass : '']
   }, [_c('a', {
     on: {
       "click": function($event) {
@@ -5454,7 +5464,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })])]
   })], _vm._v(" "), _c('li', {
-    class: ['btn-nav', _vm.css.linkClass, _vm.isOnLastPage ? _vm.css.disabledClass : '']
+    class: [_vm.css.linkClass, _vm.isOnLastPage ? _vm.css.disabledClass : '']
   }, [_c('a', {
     on: {
       "click": function($event) {
@@ -5464,7 +5474,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.css.icons.next != '') ? _c('i', {
     class: [_vm.css.icons.next]
   }) : _c('span', [_vm._v("› ")])])]), _vm._v(" "), _c('li', {
-    class: ['btn-nav', _vm.css.linkClass, _vm.isOnLastPage ? _vm.css.disabledClass : '']
+    class: [_vm.css.linkClass, _vm.isOnLastPage ? _vm.css.disabledClass : '']
   }, [_c('a', {
     on: {
       "click": function($event) {
@@ -5506,7 +5516,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "input-group-btn"
   }, [_c('button', {
-    staticClass: "btn btn-default",
+    staticClass: "btn btn-primary",
     attrs: {
       "type": "button"
     },

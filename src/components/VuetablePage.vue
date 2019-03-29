@@ -2,13 +2,13 @@
   <form class="form-inline text-right">
     <div class="form-group">
       <ul v-show="tablePagination && tablePagination.last_page > 1" :class="css.wrapperClass">
-        <li :class="['btn-nav', css.linkClass, isOnFirstPage ? css.disabledClass : '']">
+        <li :class="[css.linkClass, isOnFirstPage ? css.disabledClass : '']">
           <a @click="loadPage(1)">
             <i v-if="css.icons.first != ''" :class="[css.icons.first]"></i>
             <span v-else>&laquo;</span>
           </a>
         </li>
-        <li :class="['btn-nav', css.linkClass, isOnFirstPage ? css.disabledClass : '']">
+        <li :class="[css.linkClass, isOnFirstPage ? css.disabledClass : '']">
           <a @click="loadPage('prev')">
             <i v-if="css.icons.next != ''" :class="[css.icons.prev]"></i>
             <span v-else>&nbsp;&lsaquo;</span>
@@ -32,13 +32,13 @@
             </li>
           </template>
         </template>
-        <li :class="['btn-nav', css.linkClass, isOnLastPage ? css.disabledClass : '']">
+        <li :class="[css.linkClass, isOnLastPage ? css.disabledClass : '']">
           <a @click="loadPage('next')">
             <i v-if="css.icons.next != ''" :class="[css.icons.next]"></i>
             <span v-else>&rsaquo;&nbsp;</span>
           </a>
         </li>
-        <li :class="['btn-nav', css.linkClass, isOnLastPage ? css.disabledClass : '']">
+        <li :class="[css.linkClass, isOnLastPage ? css.disabledClass : '']">
           <a @click="loadPage(totalPage)">
             <i v-if="css.icons.last != ''" :class="[css.icons.last]"></i>
             <span v-else>&raquo;</span>
@@ -53,7 +53,7 @@
       <div class="input-group">
         <input type="number" class="form-control" min="1" :max="totalPage" v-model="current_page">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button" @click="loadPage(current_page)">{{$t('table.go')}}</button>
+          <button class="btn btn-primary" type="button" @click="loadPage(current_page)">{{$t('table.go')}}</button>
         </span>
       </div>
     </div>
