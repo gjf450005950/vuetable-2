@@ -100,6 +100,7 @@
 
                     <vuetable ref="vuetable"
                       api-url="http://vuetable.ratiw.net/api/users"
+                      tag="detail"
                       :fields="fields"
                       :table-height="tableHeight"
                       pagination-path="pagination"
@@ -123,7 +124,7 @@
                         :info-template="paginationInfoTemplate"
                       ></vuetable-pagination-info>
 
-                      <component :is="paginationComponent" ref="pagination"></component>
+                      <component :is="paginationComponent" ref="pagination" tag="detail"></component>
                     </div>
 
                   </div><!-- vuetable-wrapper -->

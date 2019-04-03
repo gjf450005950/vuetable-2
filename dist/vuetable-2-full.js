@@ -3194,7 +3194,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     tag: {
       type: String,
-      default: 'main'
+      default: ''
     }
   },
   data: function data() {
@@ -4156,7 +4156,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     tag: {
       type: String,
-      default: 'main'
+      default: ''
     }
   },
   data: function data() {

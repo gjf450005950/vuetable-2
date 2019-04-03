@@ -30,7 +30,7 @@ export default {
     },
     tag: {
       type: String,
-      default: 'main'
+      default: ''
     }
   },
   data: function() {
