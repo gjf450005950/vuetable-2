@@ -8,6 +8,7 @@ import VuetablePaginationInfoMixin from './components/VuetablePaginationInfoMixi
 import VuetablePagination from './components/VuetablePagination.vue'
 import VuetablePaginationDropDown from './components/VuetablePaginationDropdown.vue'
 import VuetablePaginationInfo from './components/VuetablePaginationInfo.vue'
+import VuetablePage from './components/VuetablePage.vue'
 import VuetableFieldCheckbox from './components/VuetableFieldCheckbox.vue'
 import VuetableFieldHandle from './components/VuetableFieldHandle.vue'
 import VuetableFieldSequence from './components/VuetableFieldSequence.vue'
@@ -30,6 +31,7 @@ function install(Vue) {
   Vue.component("vuetable-pagination-dropdown", VuetablePaginationDropDown);
   Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
   Vue.component("vuetable-row-header", VuetableRowHeader)
+  Vue.component("vuetable-page", VuetablePage);
 }
 export {
   Vuetable,
@@ -47,6 +49,7 @@ export {
   VuetablePaginationDropDown,
   VuetablePaginationInfo,
   VuetableRowHeader,
+  VuetablePage,
 
   install
 };

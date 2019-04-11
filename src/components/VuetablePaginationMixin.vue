@@ -18,16 +18,26 @@ export default {
     firstPage: {
       type: Number,
       default: 1
+    },
+    tag: {
+      type: String,
+      default: ''
     }
   },
   data: function() {
     return {
       eventPrefix: 'vuetable-pagination:',
       tablePagination: null,
-      $_css: {}
+      $_css: {},
+      current_page:'' //新增 vic
     }
   },
   computed: {
+     total () {
+      return this.tablePagination === null
+        ? 0
+        : this.tablePagination.total
+    },
     totalPage () {
       return this.tablePagination === null
         ? 0
@@ -67,17 +77,24 @@ export default {
   created () {
     this.mergeCss()
   },
+  mounted(){
+    //接收分页数据
+    this.$parent.$on('vuetable:pagination-data:'+this.tag,tablePagination=>this.setPaginationData(tablePagination));
+  },
   methods: {
     mergeCss () {
       this.$_css = {...CssSemanticUI.pagination, ...this.css}
     },
     loadPage (page) {
-      this.$emit(this.eventPrefix + 'change-page', page)
+      //this.$emit(this.eventPrefix + 'change-page', page)
+      // 发送 切页事件
+      this.$parent.$emit('vuetable:change-page:'+this.tag, page)
     },
     isCurrentPage (page) {
       return page === this.tablePagination.current_page
     },
     setPaginationData (tablePagination) {
+      this.current_page = ''//update vic
       this.tablePagination = tablePagination
     },
     resetData () {

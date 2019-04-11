@@ -34,7 +34,7 @@
         <template v-for="(item, itemIndex) in tableData">
           <tr :item-index="itemIndex"
             :key="itemIndex"
-            :class="onRowClass(item, itemIndex)"
+            :class="[itemIndex==selectedIndex?selectedRowClass:'',onRowClass(item, itemIndex)]"
             @click="onRowClicked(item, itemIndex, $event)"
             @dblclick="onRowDoubleClicked(item, itemIndex, $event)"
             @mouseover="onMouseOver(item, itemIndex, $event)"
@@ -69,6 +69,7 @@
                     @click="onCellClicked(item, itemIndex, field, $event)"
                     @dblclick="onCellDoubleClicked(item, itemIndex, field, $event)"
                     @contextmenu="onCellRightClicked(item, itemIndex, field, $event)"
+                    :title="renderNormalField(field, item)"
                   ></td>
                 </template>
               </template>
@@ -312,6 +313,14 @@ export default {
       default() {
         return 'vuetable:'
       }
+    },
+    tag: {
+      type: String,
+      default: ''
+    },
+    selectedRowClass: {
+      type: String,
+      default: ''
     }
   },
 
@@ -326,7 +335,8 @@ export default {
       lastScrollPosition: 0,
       scrollBarWidth: '17px', //chrome default
       scrollVisible: false,
-      $_css: {}
+      $_css: {},
+      selectedIndex:null
     }
   },
 
@@ -411,6 +421,9 @@ export default {
         elem.addEventListener('scroll', this.handleScroll);
       }
     }
+
+    // 接收分页事件
+    this.$parent.$on('vuetable:change-page:'+this.tag,page=>this.changePage(page));
   },
 
   destroyed () {
@@ -564,7 +577,7 @@ export default {
       this.$nextTick( () => {
         this.checkIfRowIdentifierExists()
         this.updateHeader()
-        this.fireEvent('pagination-data', this.tablePagination)
+        this.fireEvent('pagination-data', this.tablePagination) //发送 分页数据
         this.fireEvent('loaded')
       })
     },
@@ -713,6 +726,10 @@ export default {
 
       if (arguments.length > 1) {
         let args = Array.from(arguments)
+        if(arguments[0]==='pagination-data'){
+          // 发送 分页数据
+          this.$parent.$emit('vuetable:pagination-data:'+this.tag, arguments[1])
+        }
         args[0] = this.eventPrefix + args[0]
         return this.$emit.apply(this, args)
       }
@@ -1050,6 +1067,7 @@ export default {
     },
 
     onRowClicked (dataItem, dataIndex, event) {
+      this.selectedIndex=dataIndex;
       this.fireEvent('row-clicked', { data: dataItem, index: dataIndex, event: event })
       return true
     },

@@ -3,7 +3,9 @@ import Vuetable from './components/Vuetable.vue'
 import VuetablePagination from './components/VuetablePagination.vue'
 import VuetablePaginationDropdown from './components/VuetablePaginationDropdown.vue'
 import VuetablePaginationInfo from './components/VuetablePaginationInfo.vue'
+import VuetablePage from './components/VuetablePage.vue'
 import axios from 'axios'
+import VueI18n from 'vue-i18n'
 
 import VuetableFieldCheckbox from './components/VuetableFieldCheckbox.vue'
 import VuetableFieldHandle from './components/VuetableFieldHandle'
@@ -90,6 +92,7 @@ Vue.component('settings-modal', {
         <div class="field">
           <label>Pagination:</label>
           <select class="ui simple dropdown" v-model="$parent.paginationComponent">
+            <option value="vuetable-page">vuetable-page</option>
             <option value="vuetable-pagination">vuetable-pagination</option>
             <option value="vuetable-pagination-dropdown">vuetable-pagination-dropdown</option>
           </select>
@@ -258,15 +261,18 @@ let dataFields = [
     dataClass: 'center aligned'
   }
 ]
-
+Vue.use(VueI18n)
+const i18n = new VueI18n()
 /* eslint-disable no-new */
 let vm = new Vue({
   el: '#app',
+  i18n,
   components: {
     Vuetable,
     VuetablePagination,
     VuetablePaginationDropdown,
     VuetablePaginationInfo,
+    VuetablePage
   },
   data: {
     loading: '',
@@ -379,16 +385,16 @@ let vm = new Vue({
       return (index % 2) === 0 ? 'odd' : 'even'
     },
     onCellClicked (data, field, event) {
-      console.log('cellClicked', field.name)
-      if (field.name !== this.fieldPrefix+'actions') {
+      console.log('cellClicked', field)
+      if (field && field.name !== this.fieldPrefix+'actions') {
         this.$refs.vuetable.toggleDetailRow(data.id)
       }
     },
     onCellDoubleClicked (data, field, event) {
-      console.log('cellDoubleClicked:', field.name)
+      console.log('cellDoubleClicked:', field)
     },
     onCellRightClicked (data, field, event) {
-      console.log('cellRightClicked:', field.name)
+      console.log('cellRightClicked:', field)
     },
     onLoadSuccess (response) {
       // set pagination data to pagination-info component
