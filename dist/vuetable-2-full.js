@@ -4290,6 +4290,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var success = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.loadSuccess;
       var failed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.loadFailed;
 
+      this.selectedIndex = null;
       if (this.isDataMode) {
         this.handleDataMode();
         return;
