@@ -638,6 +638,7 @@ export default {
     },
 
     loadData (success = this.loadSuccess, failed = this.loadFailed) {
+      this.selectedIndex=null
       if (this.isDataMode) {
         this.handleDataMode()
         return
